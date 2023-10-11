@@ -12,4 +12,11 @@ class BeersService @Inject constructor(private val api:BeersApiClient){
             response.body() ?: emptyList()
         }
     }
+
+    suspend fun getSearchBeersList(beer_name:String):List<BeerModel>{
+        return withContext(Dispatchers.IO){
+            val response = api.getSearchBeersList(beer_name)
+            response.body() ?: emptyList()
+        }
+    }
 }

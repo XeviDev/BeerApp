@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.xevidev.beerapp.listbeers.domain.GetBeersUseCase
+import com.xevidev.beerapp.listbeers.domain.GetSearchBeersUseCase
 import com.xevidev.beerapp.listbeers.domain.model.Beer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BeerListViewModel @Inject constructor(
-    private val getBeersUseCase: GetBeersUseCase
+    private val getBeersUseCase: GetBeersUseCase,
+    private val getSearchBeersUseCase: GetSearchBeersUseCase,
 ):ViewModel() {
     private val _beers = MutableStateFlow(emptyList<Beer>())
     val beers: StateFlow<List<Beer>> = _beers
@@ -23,7 +25,7 @@ class BeerListViewModel @Inject constructor(
     fun getBeers(){
        viewModelScope.launch {
            try {
-               _beers.value = getBeersUseCase()
+               _beers.value = getSearchBeersUseCase("punk")
            }catch (e: Exception){
 
            }

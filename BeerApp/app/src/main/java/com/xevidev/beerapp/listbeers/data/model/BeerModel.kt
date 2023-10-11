@@ -9,4 +9,5 @@ data class BeerModel(
     @SerializedName("first_brewed") val firstBrewed:String,
     @SerializedName("description") val description:String,
     @SerializedName("image_url") val imageUrl:String,
+    @SerializedName("abv") val abv:String
 )

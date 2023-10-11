@@ -10,6 +10,7 @@ data class Beer(
     val firstBrewed: String,
     val description: String,
     val imageUrl: String,
+    val abv: String
 )
 
-fun BeerModel.parseDomain() = Beer(id, name, tagline, firstBrewed, description, imageUrl)
+fun BeerModel.parseDomain() = Beer(id, name, tagline, firstBrewed, description, imageUrl, abv)
