@@ -11,10 +11,12 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.xevidev.beerapp.listbeers.ui.BeerListViewModel
 import com.xevidev.beerapp.listbeers.ui.BeersListScreen
+import com.xevidev.beerapp.listbeers.ui.utils.MyColors
 import com.xevidev.beerapp.ui.theme.BeerAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -28,8 +30,9 @@ class MainActivity : ComponentActivity() {
             BeerAppTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
-                    modifier = Modifier.fillMaxSize().padding(8.dp),
-                    color = MaterialTheme.colorScheme.background
+                    modifier = Modifier.fillMaxSize(),
+//                    color = Color.White
+                    color = MyColors.PRIMARY.color
                 ) {
                     BeersListScreen(beerListViewModel)
                 }

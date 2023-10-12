@@ -52,13 +52,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.xevidev.beerapp.listbeers.domain.model.Beer
+import com.xevidev.beerapp.listbeers.ui.utils.MyColors
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun BeersListScreen(beerListViewModel: BeerListViewModel) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
-    Column {
+    Column(
+        Modifier
+            .padding(8.dp)
+            .background(MyColors.PRIMARY.color)) {
         searchBar2(beerListViewModel, keyboardController, focusManager)
         val beers by beerListViewModel.beers.collectAsState()
         if (beers.isEmpty()) {
@@ -87,8 +91,15 @@ fun Nothing() {
             .padding(16.dp),
         contentAlignment = Alignment.Center
     ) {
-        Column (horizontalAlignment = Alignment.CenterHorizontally){
-            Icon(imageVector = Icons.Default.Search, contentDescription = null, Modifier.size(32.dp).fillMaxWidth(), tint = Color.Gray)
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Icon(
+                imageVector = Icons.Default.Search,
+                contentDescription = null,
+                Modifier
+                    .size(32.dp)
+                    .fillMaxWidth(),
+                tint = Color.Gray
+            )
             Text(
                 text = "Empty result",
                 color = Color.Gray,
@@ -116,7 +127,9 @@ fun searchBar2(
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
             disabledTextColor = Color.Transparent,
-            disabledIndicatorColor = Color.Transparent
+            disabledIndicatorColor = Color.Transparent,
+            focusedContainerColor = MyColors.GREY_PRIMARY.color,
+            //unfocusedContainerColor = Color.White
         ),
         onValueChange = {
             query = it
@@ -144,7 +157,9 @@ fun SingleItem(
 ) {
     Card(
         modifier = Modifier.padding(8.dp),
-        colors = CardDefaults.cardColors(contentColor = Color.White, containerColor = Color.Gray),
+        colors = CardDefaults.cardColors(contentColor = Color.White
+            , containerColor = MyColors.TERTIARY.color
+        ),
         shape = RoundedCornerShape(12.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
         onClick = {
@@ -166,7 +181,7 @@ fun SingleItem(
                     .width(100.dp)
                     .height(100.dp)
                     .clip(RoundedCornerShape(16.dp))
-                    .background(Color.White)
+                    //.background(Color.White)
 
             )
             Column(
