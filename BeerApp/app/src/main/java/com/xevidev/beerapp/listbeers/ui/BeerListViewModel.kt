@@ -22,10 +22,10 @@ class BeerListViewModel @Inject constructor(
     private val _beers = MutableStateFlow(emptyList<Beer>())
     val beers: StateFlow<List<Beer>> = _beers
 
-    fun getBeers(){
+    fun getSearchBeers(beer_name:String){
        viewModelScope.launch {
            try {
-               _beers.value = getSearchBeersUseCase("punk")
+               _beers.value = getSearchBeersUseCase(beer_name)
            }catch (e: Exception){
 
            }
