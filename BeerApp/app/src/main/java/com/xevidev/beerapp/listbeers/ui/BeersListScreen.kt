@@ -4,6 +4,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -32,7 +33,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.xevidev.beerapp.listbeers.domain.model.Beer
 
 @Composable
@@ -41,7 +44,7 @@ fun BeersListScreen(beerListViewModel: BeerListViewModel) {
     Column {
         searchBar2(beerListViewModel)
         val beers by beerListViewModel.beers.collectAsState()
-        LazyColumn {
+        LazyColumn(Modifier.padding(top = 8.dp)) {
             items(beers) { beer ->
                 SingleItem(beer)
             }
@@ -110,10 +113,14 @@ fun searchBar1(beerListViewModel: BeerListViewModel) {
 
 @Composable
 fun SingleItem(beer: Beer) {
-    Card {
+    Card(Modifier.padding(8.dp)) {
+        AsyncImage(
+            model = beer.imageUrl,
+            contentDescription = null
+        )
         Text(text = beer.id.toString())
         Text(text = beer.name)
-        Text(text = beer.description)
+        Text(text = beer.description, overflow = TextOverflow.Ellipsis, maxLines = 1)
         Text(text = beer.tagline)
     }
 
