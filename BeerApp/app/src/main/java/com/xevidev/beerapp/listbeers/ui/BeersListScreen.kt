@@ -1,13 +1,17 @@
 package com.xevidev.beerapp.listbeers.ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -30,6 +34,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -39,10 +44,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.SoftwareKeyboardController
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.xevidev.beerapp.listbeers.domain.model.Beer
 
@@ -52,14 +59,19 @@ fun BeersListScreen(beerListViewModel: BeerListViewModel) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
     Column {
-        searchBar2(beerListViewModel, keyboardController)
+        searchBar2(beerListViewModel, keyboardController, focusManager)
         val beers by beerListViewModel.beers.collectAsState()
-        LazyColumn(
-            Modifier
-                .padding(top = 8.dp)
-        ) {
-            items(beers) { beer ->
-                SingleItem(beer, keyboardController, focusManager)
+        if (beers.isEmpty()) {
+            Nothing()
+        } else {
+            LazyColumn(
+                Modifier
+                    .padding(top = 8.dp)
+            ) {
+                items(beers) { beer ->
+                    SingleItem(beer, keyboardController, focusManager)
+                }
+
             }
         }
     }
@@ -67,11 +79,31 @@ fun BeersListScreen(beerListViewModel: BeerListViewModel) {
 
 }
 
+@Composable
+fun Nothing() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Column (horizontalAlignment = Alignment.CenterHorizontally){
+            Icon(imageVector = Icons.Default.Search, contentDescription = null, Modifier.size(32.dp).fillMaxWidth(), tint = Color.Gray)
+            Text(
+                text = "Empty result",
+                color = Color.Gray,
+                style = TextStyle(fontSize = 16.sp)
+            )
+        }
+    }
+}
+
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun searchBar2(
     beerListViewModel: BeerListViewModel,
-    keyboardController: SoftwareKeyboardController?
+    keyboardController: SoftwareKeyboardController?,
+    focusManager: FocusManager
 ) {
     var query by remember { mutableStateOf("") }
     var active by remember { mutableStateOf(false) }
@@ -97,6 +129,7 @@ fun searchBar2(
         keyboardActions = KeyboardActions(
             onSearch = {
                 keyboardController?.hide()
+                focusManager.clearFocus()
             }
         ))
 
