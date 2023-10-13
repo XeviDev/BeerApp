@@ -52,7 +52,8 @@ android {
 }
 
 dependencies {
-
+    val nav_version = "2.5.3"
+    
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.activity:activity-compose:1.8.0")
@@ -81,6 +82,9 @@ dependencies {
 
     //Coil
     implementation("io.coil-kt:coil-compose:2.4.0")
+
+    //Navigation
+    implementation("androidx.navigation:navigation-compose:$nav_version")
 
 }
 // Allow references to generated code

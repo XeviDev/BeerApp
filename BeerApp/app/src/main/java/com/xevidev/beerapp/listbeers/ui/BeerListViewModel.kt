@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.xevidev.beerapp.listbeers.domain.GetBeerUseCase
 import com.xevidev.beerapp.listbeers.domain.GetBeersUseCase
 import com.xevidev.beerapp.listbeers.domain.GetSearchBeersUseCase
 import com.xevidev.beerapp.listbeers.domain.model.Beer
@@ -18,6 +19,7 @@ import javax.inject.Inject
 class BeerListViewModel @Inject constructor(
     private val getBeersUseCase: GetBeersUseCase,
     private val getSearchBeersUseCase: GetSearchBeersUseCase,
+    private val getBeerUseCase: GetBeerUseCase
 ):ViewModel() {
     private val _beers = MutableStateFlow(emptyList<Beer>())
     val beers: StateFlow<List<Beer>> = _beers
@@ -30,5 +32,14 @@ class BeerListViewModel @Inject constructor(
 
            }
        }
+    }
+    fun getBeer(id:Int){
+        viewModelScope.launch {
+            try {
+                _beers.value = getBeerUseCase(id)
+            }catch (e: Exception){
+
+            }
+        }
     }
 }

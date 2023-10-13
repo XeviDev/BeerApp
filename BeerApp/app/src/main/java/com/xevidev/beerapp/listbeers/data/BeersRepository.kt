@@ -16,4 +16,8 @@ class BeersRepository @Inject constructor(private val api:BeersService){
         val response:List<BeerModel> = api.getSearchBeersList(beer_name)
         return response.map { it.parseDomain() }
     }
+    suspend fun getBeer(id:Int):List<Beer>{
+        val response:List<BeerModel> = api.getBeer(id)
+        return response.map { it.parseDomain() }
+    }
 }

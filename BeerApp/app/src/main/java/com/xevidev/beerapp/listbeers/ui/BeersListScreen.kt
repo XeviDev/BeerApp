@@ -1,12 +1,10 @@
 package com.xevidev.beerapp.listbeers.ui
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -50,13 +48,15 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.xevidev.beerapp.listbeers.domain.model.Beer
+import com.xevidev.beerapp.listbeers.domain.model.Routes
 import com.xevidev.beerapp.listbeers.ui.utils.MyColors
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun BeersListScreen(beerListViewModel: BeerListViewModel) {
+fun BeersListScreen(beerListViewModel: BeerListViewModel, navigationController: NavHostController) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
     Column(
@@ -73,7 +73,7 @@ fun BeersListScreen(beerListViewModel: BeerListViewModel) {
                     .padding(top = 8.dp)
             ) {
                 items(beers) { beer ->
-                    SingleItem(beer, keyboardController, focusManager)
+                    SingleItem(beer, keyboardController, focusManager, navigationController)
                 }
 
             }
@@ -129,7 +129,6 @@ fun searchBar2(
             disabledTextColor = Color.Transparent,
             disabledIndicatorColor = Color.Transparent,
             focusedContainerColor = MyColors.GREY_PRIMARY.color,
-            //unfocusedContainerColor = Color.White
         ),
         onValueChange = {
             query = it
@@ -153,7 +152,8 @@ fun searchBar2(
 fun SingleItem(
     beer: Beer,
     keyboardController: SoftwareKeyboardController?,
-    focusManager: FocusManager
+    focusManager: FocusManager,
+    navigationController: NavHostController
 ) {
     Card(
         modifier = Modifier.padding(8.dp),
@@ -165,6 +165,7 @@ fun SingleItem(
         onClick = {
             keyboardController?.hide()
             focusManager.clearFocus()
+            navigationController.navigate(Routes.SingleBeer.route.replace("{id}",beer.id.toString()))
         }
     ) {
         Row(
@@ -181,7 +182,6 @@ fun SingleItem(
                     .width(100.dp)
                     .height(100.dp)
                     .clip(RoundedCornerShape(16.dp))
-                    //.background(Color.White)
 
             )
             Column(
