@@ -31,6 +31,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -116,9 +117,8 @@ fun searchBar2(
     keyboardController: SoftwareKeyboardController?,
     focusManager: FocusManager
 ) {
-    var query by remember { mutableStateOf("") }
-    var active by remember { mutableStateOf(false) }
-
+    var query by rememberSaveable { mutableStateOf("") }
+    if(query.isNotEmpty())beerListViewModel.getSearchBeers(query)
     TextField(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(32.dp),
