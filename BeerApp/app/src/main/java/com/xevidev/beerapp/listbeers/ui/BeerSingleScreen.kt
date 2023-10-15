@@ -9,7 +9,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -25,6 +32,7 @@ import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.xevidev.beerapp.listbeers.ui.utils.MyColors
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BeerSingleScreen(
     navigationController: NavHostController,
@@ -35,6 +43,20 @@ fun BeerSingleScreen(
     val beers by beerListViewModel.beers.collectAsState()
     val beer = beers.first()
     Column(Modifier.fillMaxSize()) {
+        CenterAlignedTopAppBar(title = { Text(text = "BeerApp") },
+            colors = TopAppBarDefaults.topAppBarColors(
+                containerColor = MyColors.SECONDARY.color,
+                titleContentColor = Color.White
+            ),
+            navigationIcon = {
+                IconButton(onClick = { navigationController.popBackStack() }) {
+                    Icon(
+                        imageVector = Icons.Filled.ArrowBack,
+                        tint = Color.White,
+                        contentDescription = ""
+                    )
+                }
+            })
         Box(
             Modifier
                 .fillMaxWidth()
