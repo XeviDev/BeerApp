@@ -30,7 +30,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -63,8 +62,9 @@ fun BeersListScreen(beerListViewModel: BeerListViewModel, navigationController: 
     Column(
         Modifier
             .padding(8.dp)
-            .background(MyColors.PRIMARY.color)) {
-        searchBar2(beerListViewModel, keyboardController, focusManager)
+            .background(MyColors.PRIMARY.color)
+    ) {
+        SearchBar(beerListViewModel, keyboardController, focusManager)
         val beers by beerListViewModel.beers.collectAsState()
         if (beers.isEmpty()) {
             Nothing()
@@ -112,13 +112,13 @@ fun Nothing() {
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun searchBar2(
+fun SearchBar(
     beerListViewModel: BeerListViewModel,
     keyboardController: SoftwareKeyboardController?,
     focusManager: FocusManager
 ) {
     var query by rememberSaveable { mutableStateOf("") }
-    if(query.isNotEmpty())beerListViewModel.getSearchBeers(query)
+    if (query.isNotEmpty()) beerListViewModel.getSearchBeers(query)
     TextField(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(32.dp),
@@ -157,15 +157,20 @@ fun SingleItem(
 ) {
     Card(
         modifier = Modifier.padding(8.dp),
-        colors = CardDefaults.cardColors(contentColor = Color.White
-            , containerColor = MyColors.TERTIARY.color
+        colors = CardDefaults.cardColors(
+            contentColor = Color.White, containerColor = MyColors.TERTIARY.color
         ),
         shape = RoundedCornerShape(12.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
         onClick = {
             keyboardController?.hide()
             focusManager.clearFocus()
-            navigationController.navigate(Routes.SingleBeer.route.replace("{id}",beer.id.toString()))
+            navigationController.navigate(
+                Routes.SingleBeer.route.replace(
+                    "{id}",
+                    beer.id.toString()
+                )
+            )
         }
     ) {
         Row(

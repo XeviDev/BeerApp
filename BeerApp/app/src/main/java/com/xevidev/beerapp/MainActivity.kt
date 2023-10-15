@@ -38,11 +38,19 @@ class MainActivity : ComponentActivity() {
                         startDestination = Routes.ListBeers.route
                     ) {
                         composable(Routes.ListBeers.route) {
-                            BeersListScreen(beerListViewModel,navigationController)
+                            BeersListScreen(beerListViewModel, navigationController)
                         }
-                        composable(Routes.SingleBeer.route, arguments = listOf(navArgument("id"){ type = NavType.StringType})){ backStrackEntry ->
+                        composable(
+                            Routes.SingleBeer.route,
+                            arguments = listOf(navArgument("id") { type = NavType.StringType })
+                        ) { backStrackEntry ->
 
-                            BeerSingleScreen(navigationController, backStrackEntry.arguments?.getString("id").orEmpty(), beerListViewModel)}
+                            BeerSingleScreen(
+                                navigationController,
+                                backStrackEntry.arguments?.getString("id").orEmpty(),
+                                beerListViewModel
+                            )
+                        }
                     }
                 }
             }

@@ -6,18 +6,19 @@ import com.xevidev.beerapp.listbeers.domain.model.Beer
 import com.xevidev.beerapp.listbeers.domain.model.parseDomain
 import javax.inject.Inject
 
-class BeersRepository @Inject constructor(private val api:BeersService){
-    suspend fun getBeersList(): List<Beer>{
+class BeersRepository @Inject constructor(private val api: BeersService) {
+    suspend fun getBeersList(): List<Beer> {
         val response: List<BeerModel> = api.getBeersList()
         return response.map { it.parseDomain() }
     }
 
-    suspend fun getSearchBeersList(beer_name:String):List<Beer>{
-        val response:List<BeerModel> = api.getSearchBeersList(beer_name)
+    suspend fun getSearchBeersList(beer_name: String): List<Beer> {
+        val response: List<BeerModel> = api.getSearchBeersList(beer_name)
         return response.map { it.parseDomain() }
     }
-    suspend fun getBeer(id:Int):List<Beer>{
-        val response:List<BeerModel> = api.getBeer(id)
+
+    suspend fun getBeer(id: Int): List<Beer> {
+        val response: List<BeerModel> = api.getBeer(id)
         return response.map { it.parseDomain() }
     }
 }

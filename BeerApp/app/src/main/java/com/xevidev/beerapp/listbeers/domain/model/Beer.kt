@@ -1,6 +1,5 @@
 package com.xevidev.beerapp.listbeers.domain.model
 
-import com.google.gson.annotations.SerializedName
 import com.xevidev.beerapp.listbeers.data.model.BeerModel
 
 data class Beer(

@@ -9,10 +9,11 @@ import retrofit2.http.Query
 interface BeersApiClient {
     @GET("beers")
     suspend fun getBeersList(): Response<List<BeerModel>>
+
     @GET("beers")
-    suspend fun getSearchBeersList(@Query("beer_name") beer_name:String): Response<List<BeerModel>>
+    suspend fun getSearchBeersList(@Query("beer_name") beer_name: String): Response<List<BeerModel>>
 
     @GET("beers/{id}")
-    suspend fun getBeer(@Path("id") id:Int): Response<List<BeerModel>>
+    suspend fun getBeer(@Path("id") id: Int): Response<List<BeerModel>>
 
 }
