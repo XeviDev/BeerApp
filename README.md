@@ -1,4 +1,4 @@
-# ToDo App
+# Beer App
 
 ## About me
 
@@ -22,9 +22,9 @@ In this version you will search for beers and display them in a list. It
 also has a single view of a beer.
 
 <p align="center">
-    <img src="img_versions/beerApp1.png?raw=true"  width="25%" height="25%">
-    <img src="img_versions/beerApp2.png?raw=true"  width="25%" height="25%">
-    <img src="img_versions/beerApp3.png?raw=true"  width="25%" height="25%">
+    <img src="BeerApp/img_versions/beerApp1.png?raw=true"  width="25%" height="25%">
+    <img src="BeerApp/img_versions/beerApp2.png?raw=true"  width="25%" height="25%">
+    <img src="BeerApp/img_versions/beerApp3.png?raw=true"  width="25%" height="25%">
 </p>
 
 ## License
