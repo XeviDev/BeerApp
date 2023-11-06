@@ -87,6 +87,10 @@ dependencies {
     //Navigation
     implementation("androidx.navigation:navigation-compose:$nav_version")
 
+    //Destination
+    implementation("io.github.raamcosta.compose-destinations:core:1.8.42-beta")
+    ksp("io.github.raamcosta.compose-destinations:ksp:1.8.42-beta")
+
 }
 // Allow references to generated code
 kapt {
