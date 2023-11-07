@@ -28,16 +28,16 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.xevidev.beerapp.listbeers.ui.utils.MyColors
 
 @Destination
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BeerSingleScreen(
-    navigationController: NavHostController,
+    navigator: DestinationsNavigator,
     id: String,
     beerListViewModel: BeerListViewModel
 ) {
@@ -51,7 +51,7 @@ fun BeerSingleScreen(
                 titleContentColor = Color.White
             ),
             navigationIcon = {
-                IconButton(onClick = { navigationController.popBackStack() }) {
+                IconButton(onClick = { navigator.popBackStack() }) {
                     Icon(
                         imageVector = Icons.Filled.ArrowBack,
                         tint = Color.White,
