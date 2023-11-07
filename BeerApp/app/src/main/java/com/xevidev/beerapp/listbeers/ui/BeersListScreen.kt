@@ -50,10 +50,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
+import com.ramcosta.composedestinations.annotation.Destination
 import com.xevidev.beerapp.listbeers.domain.model.Beer
 import com.xevidev.beerapp.listbeers.domain.model.Routes
 import com.xevidev.beerapp.listbeers.ui.utils.MyColors
 
+@Destination(start = true)
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun BeersListScreen(beerListViewModel: BeerListViewModel, navigationController: NavHostController) {

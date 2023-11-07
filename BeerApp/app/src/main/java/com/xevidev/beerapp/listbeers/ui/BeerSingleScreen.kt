@@ -30,8 +30,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
+import com.ramcosta.composedestinations.annotation.Destination
 import com.xevidev.beerapp.listbeers.ui.utils.MyColors
 
+@Destination
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BeerSingleScreen(
