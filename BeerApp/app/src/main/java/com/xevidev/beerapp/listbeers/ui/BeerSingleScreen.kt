@@ -18,8 +18,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -28,20 +26,20 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import com.xevidev.beerapp.listbeers.domain.model.Beer
 import com.xevidev.beerapp.listbeers.ui.utils.MyColors
 
+@Destination
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BeerSingleScreen(
-    navigationController: NavHostController,
-    id: String,
-    beerListViewModel: BeerListViewModel
+    navigator: DestinationsNavigator,
+    beer: Beer
 ) {
-    beerListViewModel.getBeer(id.toInt())
-    val beers by beerListViewModel.beers.collectAsState()
-    val beer = beers.first()
+
     Column(Modifier.fillMaxSize()) {
         CenterAlignedTopAppBar(title = { Text(text = "BeerApp") },
             colors = TopAppBarDefaults.topAppBarColors(
@@ -49,7 +47,7 @@ fun BeerSingleScreen(
                 titleContentColor = Color.White
             ),
             navigationIcon = {
-                IconButton(onClick = { navigationController.popBackStack() }) {
+                IconButton(onClick = { navigator.popBackStack() }) {
                     Icon(
                         imageVector = Icons.Filled.ArrowBack,
                         tint = Color.White,

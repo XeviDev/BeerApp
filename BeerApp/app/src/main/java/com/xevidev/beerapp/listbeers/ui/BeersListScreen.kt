@@ -48,15 +48,22 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootNavGraph
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.xevidev.beerapp.listbeers.domain.model.Beer
-import com.xevidev.beerapp.listbeers.domain.model.Routes
+import com.xevidev.beerapp.listbeers.ui.destinations.BeerSingleScreenDestination
 import com.xevidev.beerapp.listbeers.ui.utils.MyColors
 
+@RootNavGraph(start = true)
+@Destination
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun BeersListScreen(beerListViewModel: BeerListViewModel, navigationController: NavHostController) {
+fun BeersListScreen(
+    beerListViewModel: BeerListViewModel,
+    navigator: DestinationsNavigator
+) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
     Column(
@@ -74,7 +81,7 @@ fun BeersListScreen(beerListViewModel: BeerListViewModel, navigationController: 
                     .padding(top = 8.dp)
             ) {
                 items(beers) { beer ->
-                    SingleItem(beer, keyboardController, focusManager, navigationController)
+                    SingleItem(beer, keyboardController, focusManager, navigator)
                 }
 
             }
@@ -153,7 +160,7 @@ fun SingleItem(
     beer: Beer,
     keyboardController: SoftwareKeyboardController?,
     focusManager: FocusManager,
-    navigationController: NavHostController
+    navigator: DestinationsNavigator
 ) {
     Card(
         modifier = Modifier.padding(8.dp),
@@ -165,10 +172,9 @@ fun SingleItem(
         onClick = {
             keyboardController?.hide()
             focusManager.clearFocus()
-            navigationController.navigate(
-                Routes.SingleBeer.route.replace(
-                    "{id}",
-                    beer.id.toString()
+            navigator.navigate(
+                BeerSingleScreenDestination(
+                    beer
                 )
             )
         }
