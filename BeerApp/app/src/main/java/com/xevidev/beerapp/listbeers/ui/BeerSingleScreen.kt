@@ -18,8 +18,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,6 +29,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import com.xevidev.beerapp.listbeers.domain.model.Beer
 import com.xevidev.beerapp.listbeers.ui.utils.MyColors
 
 @Destination
@@ -38,12 +37,9 @@ import com.xevidev.beerapp.listbeers.ui.utils.MyColors
 @Composable
 fun BeerSingleScreen(
     navigator: DestinationsNavigator,
-    id: String,
-    beerListViewModel: BeerListViewModel
+    beer: Beer
 ) {
-    beerListViewModel.getBeer(id.toInt())
-    val beers by beerListViewModel.beers.collectAsState()
-    val beer = beers.first()
+
     Column(Modifier.fillMaxSize()) {
         CenterAlignedTopAppBar(title = { Text(text = "BeerApp") },
             colors = TopAppBarDefaults.topAppBarColors(

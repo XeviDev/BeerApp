@@ -174,7 +174,7 @@ fun SingleItem(
             focusManager.clearFocus()
             navigator.navigate(
                 BeerSingleScreenDestination(
-                    beer.id.toString()
+                    beer
                 )
             )
         }
