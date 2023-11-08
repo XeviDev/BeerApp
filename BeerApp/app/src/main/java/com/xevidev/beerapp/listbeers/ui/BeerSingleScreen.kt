@@ -38,7 +38,7 @@ import com.xevidev.beerapp.listbeers.ui.utils.MyColors
 fun BeerSingleScreen(
     navigator: DestinationsNavigator,
     beer: Beer
-) {
+) { 
 
     Column(Modifier.fillMaxSize()) {
         CenterAlignedTopAppBar(title = { Text(text = "BeerApp") },
