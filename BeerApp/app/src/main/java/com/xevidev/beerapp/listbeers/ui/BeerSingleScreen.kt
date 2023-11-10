@@ -63,7 +63,7 @@ fun BeerSingleScreen(
             contentAlignment = Alignment.TopCenter
         ) {
             BeerImg(img = beer.imageUrl)
-        }
+        } 
         Box(
             Modifier
                 .fillMaxWidth()
